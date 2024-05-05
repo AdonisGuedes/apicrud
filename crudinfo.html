@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOJA DE INFORMÁTICA</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+        margin-top: 0;
+        text-align: center;
+        color: #333;
+    }
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    input[type="text"], input[type="number"] {
+        flex: 1;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    th, td {
+        padding: 12px 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+    th {
+        background-color: #007bff;
+        color: #fff;
+    }
+    td:last-child {
+        text-align: center;
+    }
+    td:last-child button {
+        padding: 8px 16px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    td:last-child button:hover {
+        background-color: #c82333;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>LOJA DE INFORMÁTICA</h2>
+
+    <form id="crud-form">
+        <input type="text" id="item" placeholder="Produto">
+        <input type="number" id="price" placeholder="Preço">
+        <button type="submit" id="add-item">ADICIONAR PRODUTO</button>
+    </form>
+
+    <table id="item-list">
+        <thead>
+            <tr>
+                <th>PRODUTOS</th>
+                <th>PREÇO</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="item-table-body">
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const form = document.getElementById('crud-form');
+    const itemList = document.getElementById('item-list');
+    const itemTableBody = document.getElementById('item-table-body');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const itemInput = document.getElementById('item');
+        const priceInput = document.getElementById('price');
+        const newItem = itemInput.value.trim();
+        const newPrice = priceInput.value.trim();
+        if (newItem !== '' && newPrice !== '') {
+            addItem(newItem, newPrice);
+            itemInput.value = '';
+            priceInput.value = '';
+        }
+    });
+
+    function addItem(item, price) {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${item}</td>
+            <td>${price}</td>
+            <td><button onclick="deleteItem(this)">Delete</button></td>
+        `;
+        itemTableBody.appendChild(newRow);
+    }
+
+    function deleteItem(button) {
+        const row = button.closest('tr');
+        row.remove();
+    }
+</script>
+
+</body>
+</html>
